@@ -62,10 +62,8 @@ require(["gitbook"], function(gitbook) {
 		        var mydata = 'xz' + fname + '-' + name + ';;;' + answer;
 		        console.log(mydata);
 		        var ws = new WebSocket('ws://192.168.0.253:3368');
-		        ws.onopen = function(){
-                          console.log("send");
-		          ws.send(mydata);
-                        };
+		        ws.onopen = function(){console.log("send");
+		        ws.send(mydata);};
 		        ws.onmessage = function(result){console.log(result.data);}
 		        ws.onclose=function(evt){console.log("close");};
 		        ws.onerror=function(evt){console.log("error");};
