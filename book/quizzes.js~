@@ -42,6 +42,10 @@ require(["gitbook"], function(gitbook) {
                        answer +='E';
                       if(i==5)
                        answer +='F';
+                      if(i==6)
+                       answer +='G';
+                      if(i==7)
+                       answer +='H';
                     }
                     var correct = $(this).is(":checked") === $answers.slice(i).first().is(":checked");
                     result = result && correct;
@@ -53,17 +57,25 @@ require(["gitbook"], function(gitbook) {
                 var fname = url.substring(0, url.lastIndexOf('.'));
 
                 console.log(window.location.search);
-                var reg = new RegExp("(^|&)" + "username" + "=([^&]*)(&|$)","i");
-                var r = window.location.search.substr(1).match(reg);
-                if (r!=null) name=unescape(r[2]);
+                name = getquerystring("username");
+                email = getquerystring("email");
                 
                 if(name!='')
                     {
-		        var mydata = 'xz' + fname + '-' + name + ';;;' + answer;
-		        console.log(mydata);
+		        //var mydata = 'xz' + fname + '-' + name + ';;;' + answer;
+		        //console.log(mydata);
+                        var mydata={ "url":url,
+                                     "protocol":window.location.protocol,
+                                     "allurl":window.location.host,
+                                     "username":name,
+                                     "email":email,
+                                     "answer":answer
+                                   };
 		        var ws = new WebSocket('ws://192.168.0.253:3368');
-		        ws.onopen = function(){console.log("send");
-		        ws.send(mydata);};
+		        ws.onopen = function(){
+                          console.log("send");
+		          ws.send(JSON.stringify(mydata));
+                        };
 		        ws.onmessage = function(result){console.log(result.data);}
 		        ws.onclose=function(evt){console.log("close");};
 		        ws.onerror=function(evt){console.log("error");};
@@ -79,6 +91,15 @@ require(["gitbook"], function(gitbook) {
         });
     };
 
+   function getquerystring(argv_name){
+
+     var reg = new RegExp("(^|&)" + argv_name + "=([^&]*)(&|$)","i");
+     var r = window.location.search.substr(1).match(reg);
+     if (r!=null) return unescape(r[2]);
+     return null;
+
+   };
+    
     // Prepare all exercise
     var init = function() {
         gitbook.state.$book.find("section.quiz").each(function() {
