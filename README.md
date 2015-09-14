@@ -1,10 +1,10 @@
 Interactive quizzes in a gitbook
 ==============
 
-With this plugin, a book can contain interactive quizzes.
 
-## 服务端地址
-在./book/quizzes.js设置
+
+## 修改服务端地址
+需要修改服务端地址，在./book/quizzes.js的78行设置，地址改成服务端程序1.py所在机器的ip地址
 
 ## How to use it?
 
