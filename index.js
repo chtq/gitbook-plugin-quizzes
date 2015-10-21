@@ -5,11 +5,17 @@ module.exports = {
     book: {
         assets: "./book",
         js: [
-            "quizzes.js"
+            "quizzes.js",
+            
         ],
         css: [
-            "quizzes.css"
-        ]
+            "quizzes.css",
+            
+        ],
+        html: {
+
+     
+        }
     },
    hooks:{
 
@@ -19,7 +25,7 @@ module.exports = {
         // page.content =  '<code>dadasd</code>' + page.content; 
           page.content = page.content.replace(/!!!!!!!!/g, '<pre><code>');
           page.content = page.content.replace(/@@@@@@@@/g, '</code></pre>');
-          page.content = page.content.replace(/\.html/g, '.php');
+          page.content = page.content.replace(/<pre>/g, '<pre class="sh_c">');
           
           page.content = page.content.replace(/(<div class="book-summary">)([\s\S]*)(<\/ul>\n<\/div>)/mg,'');
           page.content = page.content.replace(/(<div class="body-inner">)([\s\S]*)(<\/h1>\n<\/div>)/mg, '');
